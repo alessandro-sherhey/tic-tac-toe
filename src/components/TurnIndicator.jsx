@@ -1,6 +1,6 @@
 import React from "react";
 
-const TurnIndicator = ({turn, gameEnded}) => {
+const TurnIndicator = ({turn, gameEnded, humanPlayers}) => {
     const circleClass = () => {
         switch (turn) {
             case 1:
@@ -16,7 +16,7 @@ const TurnIndicator = ({turn, gameEnded}) => {
                 <h2>
                     <span className={`turnCircle ${circleClass()}`}>⬤</span>
                     { turn === 1 && "Player 1 turn!" }
-                    { turn === 2 && "Player 2 turn!" }
+                    { (turn === 2 && humanPlayers === 2) ? "Player 2 turn!" : null}
                 </h2>
             )}
         </div>

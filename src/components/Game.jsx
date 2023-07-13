@@ -1,15 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import Cell from './Cell';
 
-const Game = ({ turn, setTurn, winner, setWinner, gameEnded, setGameEnded }) => {
-    const [humanPlayers, setHumanPlayers] = useState(1);
-
-    const [gameStatus, setGameStatus] = useState([
-        0, 0, 0, 0, 0, 0, 0, 0, 0
-    ]);
-
+const Game = ({ 
+    gameStatus, 
+    setGameStatus, 
+    turn, 
+    setTurn, 
+    humanPlayers, 
+    winner, 
+    setWinner, 
+    gameEnded, 
+    setGameEnded,
+    resetGame
+}) => {
     const updateCells = (id) => {
-        console.info('updateCells function called.');
+        // console.info('updateCells function called.');
         // console.log(`ID: ${id}     Player: ${player}`);
         if (!gameEnded) {
             setGameStatus((prev) => {
@@ -29,7 +34,7 @@ const Game = ({ turn, setTurn, winner, setWinner, gameEnded, setGameEnded }) => 
                 })
             })
         } else {
-            console.warn("Can't update cells! Game is ended.");
+            // console.warn("Can't update cells! Game is ended.");
         }
     }
 
@@ -50,7 +55,6 @@ const Game = ({ turn, setTurn, winner, setWinner, gameEnded, setGameEnded }) => 
 
 
     const checkWin = () => {
-        console.log('called')
         const winCombinations = [
             [0, 1, 2], // Top row
             [3, 4, 5], // Middle row
@@ -81,8 +85,6 @@ const Game = ({ turn, setTurn, winner, setWinner, gameEnded, setGameEnded }) => 
                 }
             }).filter((value) => value !== null)
         )
-        console.log(player1Array)
-        console.log(player2Array)
 
         for (let i = 0; i < winCombinations.length; i++) {
             const winCombination = winCombinations[i];
@@ -98,7 +100,6 @@ const Game = ({ turn, setTurn, winner, setWinner, gameEnded, setGameEnded }) => 
             }
             
             if (player1Won) {
-              console.warn('Player 1 has won!');
               setGameEnded(true);
               setWinner(1);
               break;
@@ -131,16 +132,18 @@ const Game = ({ turn, setTurn, winner, setWinner, gameEnded, setGameEnded }) => 
         checkWin();
     }, [gameStatus]);
 
-    
+    useEffect(() => {
+        resetGame()
+    }, [humanPlayers])
 
     const aiSelect = () => {
-        console.info('aiSelect function called.');
+        // console.info('aiSelect function called.');
         let selected = false;
 
         while (selected === false) {
             let i = Math.floor(Math.random() * 8);
             
-            if (gameStatus[i] !== 1 && gameStatus[i] !== 2) {
+            if (gameStatus[i] !== 1 && gameStatus[i] !== 2 && !gameEnded) {
                 updateCells(i);
                 selected = true;
             }
@@ -169,6 +172,7 @@ const Game = ({ turn, setTurn, winner, setWinner, gameEnded, setGameEnded }) => 
                 return (
                     <Cell
                         id={index}
+                        key={index}
                         selectedBy={selectedBy}
                         updateCells={updateCells}
                     />

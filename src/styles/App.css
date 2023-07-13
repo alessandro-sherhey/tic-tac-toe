@@ -25,6 +25,8 @@ input[type="color"] {
 .game {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  height: fit-content;
 }
 
 .cell {
@@ -32,7 +34,6 @@ input[type="color"] {
   width: 120px;
   height: 120px;
   background-color: rgb(230, 230, 230);
-  margin: 4px;
   font-size: 1.5rem;
 
   border-radius: 5px;
@@ -79,82 +80,65 @@ input[type="color"] {
   }
 }
 
-
-#message {
-  animation: winner-text 1s ease infinite alternate-reverse;
-}
-
-#turnIndicator i {
-  margin-right: 10px;
-}
-
-#settings {
+.settings {
   display: flex;
-  position: absolute;
-  bottom: 20px;
+  justify-content: center;
+  margin: 0 0 30px 0;
+  padding: 0;
+
+  > .setting {
+    margin: 0 20px;
+
+    > h3 {
+      padding-bottom: 13px;
+      border-bottom: 2px solid rgba(0, 0, 0, 0.3);
+    }
+
+    > .settingsGroup > div {
+      display: flex;
+      align-items: center;
+
+      > input[type="color"] {
+        margin: 0 0 0 20px;
+        border-radius: 4px;
+        padding: 1px 3px;
+        background-color: rgba(0, 0, 0, 0.3);
+      }
+
+      > h4 {
+        margin: 10px 0;
+      }
+    }
+  }
 }
 
-#settings div {
-  margin: 0 20px;
-}
-
-#settings i {
-  margin-right: 8px;
-  opacity: 0.75;
-}
-
-#settings h2 {
-  padding-bottom: 13px;
-  border-bottom: 2px solid rgba(0,0,0,0.3);
-}
-
-#settings button {
+button {
   font-size: 1rem;
   margin: 5px 5px;
   padding: 4px 12px;
   background-color: rgba(240, 240, 240, 1);
-  border: none;
+  border: 1px solid transparent;
   border-radius: 10px;
-
   transition: 100ms ease;
-}
 
-#settings button:hover {
-  cursor: pointer;
-  background-color: rgba(230,230, 230, 1);
+  &.selected {
+    background-color: rgb(0, 106, 255);
+    border: 1px solid rgb(0, 106, 255);
+    color: white;
+  }
 
-  transition: 100ms ease;
-}
+  &:hover {
+    cursor: pointer;
+    border: 1px solid rgb(0, 106, 255);
 
-#settings button.selected:hover {
-  background-color: rgb(0, 106, 255);
-}
+    &:not(.selected) {
+      background-color: rgba(230, 230, 230, 1);
+    }
+  }
 
-#settings button:active {
-  scale: 0.9;
-  transition: 100ms ease;
-}
-
-#settings button.selected {
-  color: white;
-  background-color: rgb(0, 106, 255);
-}
-
-#settings div div {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  margin: 0;
-}
-
-#settings div div.horizontal {
-  flex-direction: row;
-  justify-content: space-between;
-}
-
-i.fa-star {
-  /* animation: rotate 2.5s ease infinite normal; */
+  &:active {
+    scale: 0.9;
+  }
 }
 
 @media (prefers-color-scheme: dark) {
@@ -163,20 +147,40 @@ i.fa-star {
       background-color: rgb(20, 20, 20);
   }
 
-  .cells {
+  .cell {
       background-color: rgb(50, 50, 50);
+
+      &:hover:not(.player1Selected):not(.player2Selected) {
+        background-color: rgb(75, 75, 75);
+      }
   }
 
-  .cells:hover {
-      background-color: rgb(75, 75, 75);
+  .settings {
+    > .setting > h3 {
+      border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+    }
   }
 
-  .cells.playerSelected:hover {
-      background-color: var(--red);
-  }
+  button {
+    color: white;
+    background-color: rgb(50, 50, 50);
 
-  .cells.aiSelected:hover {
-      background-color: var(--blue);
+    &:hover {
+
+      &:not(.selected) {
+        background-color: rgba(75, 75, 75, 1);
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 700px) {
+  .game {
+    gap: 6px;
+  }
+  .cell {
+    width: 90px;
+    height: 90px;
   }
 }
 
