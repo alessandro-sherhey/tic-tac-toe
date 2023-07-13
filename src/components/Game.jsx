@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Cell from './Cell';
 
 const Game = () => {
-    const [humanPlayers, setHumanPlayers] = useState(1);
+    const [humanPlayers, setHumanPlayers] = useState(2);
 
     const [gameStatus, setGameStatus] = useState([
         0, 0, 0, 0, 0, 0, 0, 0, 0

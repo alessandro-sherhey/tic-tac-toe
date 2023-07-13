@@ -45,17 +45,17 @@ input[type="color"] {
   color: white;
   transition: 200ms ease;
 
-  &:hover {
-    background-color: rgb(210, 210, 210);
+  &.player1Selected {
+    background-color: var(--red);
   }
-}
 
-.cell.playerSelected {
-  background-color: var(--red);
-}
+  &.player2Selected {
+    background-color: var(--blue);
+  }
 
-.cell.aiSelected {
-  background-color: var(--blue);
+  &:hover {
+    filter: brightness(0.9);
+  }
 }
 
 #turnIndicator, #message {

@@ -17,9 +17,23 @@ const Cell = (data) => {
         }
     }
 
+    const cellClass = () => {
+        const selectedBy = data.selectedBy;
+        switch (selectedBy) {
+            case null: 
+                return '';
+            case "p1":
+                return 'player1Selected';
+            case "p2":
+                return 'player2Selected';
+            default:
+                return '';
+        }
+    }
+
     return (
         <div 
-            className="cell"
+            className={`cell ${cellClass()}`}
             onClick={() => updateCells(data.id)}>
             {textToShow()}
         </div>
