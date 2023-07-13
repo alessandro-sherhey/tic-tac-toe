@@ -22,7 +22,6 @@ input[type="color"] {
   margin: 0;
 }
 
-
 .game {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
