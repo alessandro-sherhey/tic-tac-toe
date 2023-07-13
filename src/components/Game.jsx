@@ -1,42 +1,137 @@
 import React, { useEffect, useState } from 'react';
 import Cell from './Cell';
 
-const Game = () => {
-    const [humanPlayers, setHumanPlayers] = useState(2);
+const Game = ({ turn, setTurn, winner, setWinner, gameEnded, setGameEnded }) => {
+    const [humanPlayers, setHumanPlayers] = useState(1);
 
     const [gameStatus, setGameStatus] = useState([
         0, 0, 0, 0, 0, 0, 0, 0, 0
     ]);
 
-    const [turn, setTurn] = useState(1)
-
     const updateCells = (id) => {
         console.info('updateCells function called.');
         // console.log(`ID: ${id}     Player: ${player}`);
-
-        setGameStatus((prev) => {
-            return prev.map((value, i) => {
-                // console.log(`Value: ${value}     Index: ${i}`);
-                if (i === id && value !== 1 && value !== 2) {
-                    if (turn === 1) {
-                        setTurn(2);
-                        return 1;
-                    } else if (turn === 2) {
-                        setTurn(1);
-                        return 2;
+        if (!gameEnded) {
+            setGameStatus((prev) => {
+                return prev.map((value, i) => {
+                    // console.log(`Value: ${value}     Index: ${i}`);
+                    if (i === id && value !== 1 && value !== 2) {
+                        if (turn === 1) {
+                            setTurn(2);
+                            return 1;
+                        } else if (turn === 2) {
+                            setTurn(1);
+                            return 2;
+                        }
+                    } else {
+                        return value;
                     }
-                } else {
-                    return value;
-                }
+                })
             })
-        })
+        } else {
+            console.warn("Can't update cells! Game is ended.");
+        }
     }
 
     useEffect(() => {
-        if (turn === 2 && humanPlayers === 1 && gameStatus.includes(0)) {
+        if (turn === 2 && humanPlayers === 1 && !gameEnded) {
             aiSelect();
         }
     }, [turn]);
+
+    useEffect(() => {
+        checkWin();
+        if (!gameStatus.includes(0)) {
+            setGameEnded(true);
+            setTurn(1);
+        }
+    }, [gameStatus]);
+
+
+
+    const checkWin = () => {
+        console.log('called')
+        const winCombinations = [
+            [0, 1, 2], // Top row
+            [3, 4, 5], // Middle row
+            [6, 7, 8], // Bottom row
+            [0, 3, 6], // Left column
+            [1, 4, 7], // Middle column
+            [2, 5, 8], // Right column
+            [0, 4, 8], // Diagonal from top-left to bottom-right
+            [2, 4, 6]  // Diagonal from top-right to bottom-left
+        ]
+
+        const player1Array = (
+            gameStatus.map((value, index) => {
+                if (value === 1) {
+                    return index
+                } else {
+                    return null;
+                }
+            }).filter((value) => value !== null)
+        )
+
+        const player2Array = (
+            gameStatus.map((value, index) => {
+                if (value === 2) {
+                    return index
+                } else {
+                    return null;
+                }
+            }).filter((value) => value !== null)
+        )
+        console.log(player1Array)
+        console.log(player2Array)
+
+        for (let i = 0; i < winCombinations.length; i++) {
+            const winCombination = winCombinations[i];
+            let player1Won = true;
+            
+            for (let j = 0; j < winCombination.length; j++) {
+              const cell = winCombination[j];
+              
+              if (!player1Array.includes(cell)) {
+                player1Won = false;
+                break;
+              }
+            }
+            
+            if (player1Won) {
+              console.warn('Player 1 has won!');
+              setGameEnded(true);
+              setWinner(1);
+              break;
+            }
+        }
+
+        for (let i = 0; i < winCombinations.length; i++) {
+            const winCombination = winCombinations[i];
+            let player2Won = true;
+            
+            for (let j = 0; j < winCombination.length; j++) {
+              const cell = winCombination[j];
+              
+              if (!player2Array.includes(cell)) {
+                player2Won = false;
+                break;
+              }
+            }
+            
+            if (player2Won) {
+              console.warn('Player 2 has won!');
+              setGameEnded(true);
+              setWinner(2);
+              break;
+            }
+        }
+    }
+
+    useEffect(() => {
+        checkWin();
+    }, [gameStatus]);
+
+    
 
     const aiSelect = () => {
         console.info('aiSelect function called.');
