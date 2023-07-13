@@ -23,17 +23,12 @@ input[type="color"] {
 }
 
 
-#grid {
-  display: flex;
-  flex-direction: column;
-  max-width: 100%;
+.game {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
 }
 
-.rows {
-  display: flex;
-}
-
-.cells {
+.cell {
   display: flex;
   width: 120px;
   height: 120px;
@@ -50,17 +45,17 @@ input[type="color"] {
 
   color: white;
   transition: 200ms ease;
+
+  &:hover {
+    background-color: rgb(210, 210, 210);
+  }
 }
 
-.cells:hover {
-  background-color: rgb(210, 210, 210);
-}
-
-.cells.playerSelected {
+.cell.playerSelected {
   background-color: var(--red);
 }
 
-.cells.aiSelected {
+.cell.aiSelected {
   background-color: var(--blue);
 }
 
