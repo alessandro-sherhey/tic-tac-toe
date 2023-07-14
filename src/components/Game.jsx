@@ -14,7 +14,7 @@ const Game = ({
     resetGame
 }) => {
     const updateCells = (id) => {
-        // console.info('updateCells function called.');
+        // console.log('updateCells function called.');
         // console.log(`ID: ${id}     Player: ${player}`);
         if (!gameEnded) {
             setGameStatus((prev) => {
@@ -100,9 +100,10 @@ const Game = ({
             }
             
             if (player1Won) {
-              setGameEnded(true);
-              setWinner(1);
-              break;
+                console.info('Player 1 has won!');
+                setGameEnded(true);
+                setWinner(1);
+                break;
             }
         }
 
@@ -120,7 +121,7 @@ const Game = ({
             }
             
             if (player2Won) {
-              console.warn('Player 2 has won!');
+              console.info('Player 2 has won!');
               setGameEnded(true);
               setWinner(2);
               break;
@@ -137,15 +138,17 @@ const Game = ({
     }, [humanPlayers])
 
     const aiSelect = () => {
-        // console.info('aiSelect function called.');
+        // console.log('aiSelect function called.');
         let selected = false;
 
-        while (selected === false) {
-            let i = Math.floor(Math.random() * 8);
-            
-            if (gameStatus[i] !== 1 && gameStatus[i] !== 2 && !gameEnded) {
-                updateCells(i);
-                selected = true;
+        if (gameStatus.includes(0) && winner === null) {
+            while (selected === false) {
+                let i = Math.floor(Math.random() * 8);
+                
+                if (gameStatus[i] !== 1 && gameStatus[i] !== 2 && !gameEnded) {
+                    updateCells(i);
+                    selected = true;
+                }
             }
         }
     }
