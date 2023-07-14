@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 const Settings = ({
     humanPlayers, 
@@ -11,6 +11,38 @@ const Settings = ({
     setAnimations,
     resetGame
 }) => {
+    useEffect(() => {
+        document.addEventListener("keypress", (e) => {
+            if (e.key === 'r') {
+                resetGame();
+            }
+        })
+
+        return () => {
+            document.removeEventListener("keypress", (e) => {
+            if (e.key === 'r') {
+                resetGame();
+            }
+            })
+        }
+    }, [])
+
+    useEffect(() => {
+        document.addEventListener("keypress", (e) => {
+            if (e.key === 'g') {
+                window.location.href = 'https://github.com/alessandro-sherhey/tic-tac-toe';
+            }
+        })
+
+        return () => {
+            document.removeEventListener("keypress", (e) => {
+                if (e.key === 'g') {
+                    window.location.href = 'https://github.com/alessandro-sherhey/tic-tac-toe';
+                }
+            })
+        }
+    }, [])
+
     return (
         <div className="settings">
             <div className="setting">
@@ -28,7 +60,7 @@ const Settings = ({
             </div>
             <div className="setting">
                 <h3>Game</h3>
-                <div className="settignsGroup">
+                <div className="settingsGroup">
                     <button
                         onClick={() => resetGame()}
                     >Reset</button>

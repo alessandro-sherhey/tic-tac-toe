@@ -1,5 +1,7 @@
 :root {
-  --blue: #00AEFF;
+  --accent: #007BFF;
+  --blue: #007BFF;
+  /* --blue: #00AEFF; */
   --red: #FF0000;
 }
 
