@@ -74,11 +74,11 @@ const Settings = ({
                     <button
                         onClick={() => setAi(true)}
                         className={ai ? 'selected' : null}
-                    >Enabled</button>
+                    >On</button>
                     <button
                         onClick={() => setAi(false)}
                         className={!ai ? 'selected' : null}
-                    >Disabled</button>
+                    >Off</button>
                 </div>
             </div>
             {/* <div className="setting">
