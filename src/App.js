@@ -61,6 +61,7 @@ function App() {
       <WinnerIndicator 
         winner={winner} 
         gameEnded={gameEnded}
+        humanPlayers={humanPlayers}
       />
       <Settings
         humanPlayers={humanPlayers}
