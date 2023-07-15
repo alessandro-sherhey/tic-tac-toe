@@ -88,6 +88,9 @@
     margin: 0 20px;
 
     > h3 {
+      display: flex;
+      align-items: center;
+      justify-content: center;
       padding-bottom: 13px;
       border-bottom: 2px solid rgba(0, 0, 0, 0.3);
     }
@@ -137,6 +140,28 @@ button {
   &:active {
     scale: 0.9;
   }
+}
+
+span {
+  margin-left: 5px;
+
+  &.betaWarning {
+    background-color: red;
+    color: white;
+    font-weight: bold;
+    font-size: 0.85rem;
+    padding: 3px 5px;
+    border-radius: 5px;
+  }
+
+  /* &.aiTooltipTrigger {
+    margin-left: 20px;
+    font-size: 0.85rem;
+    padding: 3px 7px;
+    border-radius: 50%;
+    background-color: rgba(0, 0, 0, 0.3);
+    font-weight: bold;
+  } */
 }
 
 @media (prefers-color-scheme: dark) {

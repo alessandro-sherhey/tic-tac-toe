@@ -16,6 +16,7 @@ function App() {
   const [player1Color, setPlayer1Color] = useState('#FF0000');
   const [player2Color, setPlayer2Color] = useState('#00AEFF');
   const [animations, setAnimations] = useState(true);
+  const [ai, setAi] = useState(true);
 
   const [gameStatus, setGameStatus] = useState([
     0, 0, 0, 0, 0, 0, 0, 0, 0
@@ -28,7 +29,13 @@ function App() {
     setGameStatus([
         0, 0, 0, 0, 0, 0, 0, 0, 0
     ]);
-}
+    console.clear();
+    console.info('Game resetted');
+  }
+
+  useEffect(() => {
+    resetGame();
+  }, [ai]);
 
   return (
     <div className="App">
@@ -44,6 +51,7 @@ function App() {
         gameEnded={gameEnded}
         setGameEnded={setGameEnded}
         resetGame={resetGame}
+        ai={ai}
       />
       <TurnIndicator 
         turn={turn} 
@@ -64,6 +72,8 @@ function App() {
         animations={animations}
         setAnimations={setAnimations}
         resetGame={resetGame}
+        ai={ai}
+        setAi={setAi}
       />
     </div>
   );

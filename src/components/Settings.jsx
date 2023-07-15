@@ -9,7 +9,9 @@ const Settings = ({
     setPlayer2Color, 
     animations, 
     setAnimations,
-    resetGame
+    resetGame,
+    ai,
+    setAi
 }) => {
     useEffect(() => {
         document.addEventListener("keypress", (e) => {
@@ -64,6 +66,19 @@ const Settings = ({
                     <button
                         onClick={() => resetGame()}
                     >Reset</button>
+                </div>
+            </div>
+            <div className="setting">
+                <h3>AI <span className="betaWarning">BETA</span></h3>
+                <div className="settingsGroup">
+                    <button
+                        onClick={() => setAi(true)}
+                        className={ai ? 'selected' : null}
+                    >Enabled</button>
+                    <button
+                        onClick={() => setAi(false)}
+                        className={!ai ? 'selected' : null}
+                    >Disabled</button>
                 </div>
             </div>
             {/* <div className="setting">
